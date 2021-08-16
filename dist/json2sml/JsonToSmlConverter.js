@@ -3,14 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const JsonToSmlSettings_1 = __importDefault(require("./JsonToSmlSettings"));
 const sml_1 = require("@gelight/sml");
+const JsonToSmlSettings_1 = __importDefault(require("./JsonToSmlSettings"));
 class JsonToSmlConverter {
     static convert(jsonObject) {
         let root = new sml_1.SmlElement("SML");
         let doc = new sml_1.SmlDocument(root);
         let settings = new JsonToSmlSettings_1.default();
-        JsonToSmlConverter.convertObj(jsonObject, root, settings);
         if (settings.case === 1) {
             doc.setEndKeyword("end");
             root.name = "sml";
@@ -21,11 +20,12 @@ class JsonToSmlConverter {
         if (doc.getRoot().nodes.length === 1 && doc.getRoot().nodes[0] instanceof sml_1.SmlElement) {
             doc.setRoot(doc.getRoot().nodes[0]);
         }
+        JsonToSmlConverter.convertObj(jsonObject, root, settings);
         return doc;
     }
     static convertObj(jsonObject, smlElement, settings) {
         if (JsonToSmlConverter.isValue(jsonObject)) {
-            smlElement.addString("Value", jsonObject);
+            smlElement.add(new sml_1.SmlAttribute("Value", [String(jsonObject)]));
         }
         else if (JsonToSmlConverter.isSimpleArray(jsonObject)) {
             smlElement.addAttribute("Value", JsonToSmlConverter.getSimpleArrayValues(jsonObject));
@@ -50,7 +50,7 @@ class JsonToSmlConverter {
             settings.scan(key);
             let value = jsonObject[key];
             if (JsonToSmlConverter.isValue(value)) {
-                smlElement.addString(key, value);
+                smlElement.add(new sml_1.SmlAttribute(key, [value]));
             }
             else if (JsonToSmlConverter.isSimpleArray(value)) {
                 smlElement.addAttribute(key, JsonToSmlConverter.getSimpleArrayValues(value));

@@ -4,7 +4,8 @@ export {
     JsonToSmlConverter
 };
 
-let jsonExample = {
+/*
+let json = {
     "firstName": "John",
     "lastName": "Smith",
     "isAlive": true,
@@ -15,6 +16,7 @@ let jsonExample = {
         "state": "NY",
         "postalCode": "10021-3100"
     },
+    "aNullValue": null,
     "phoneNumbers": [
         {
             "type": "home",
@@ -31,11 +33,10 @@ let jsonExample = {
     "spouse": true
 }
 
-const json = {
-    "firstName": "John"
-}
-
 let doc = JsonToSmlConverter.convert(json);
 let root = doc.getRoot();
 
-console.log(root.attribute("lastName").getValues()[0]);
+let city = root.getElement("address").getAttribute("city").getValues()[0];
+
+console.log(city);
+*/

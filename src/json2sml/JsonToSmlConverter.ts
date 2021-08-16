@@ -1,32 +1,32 @@
-import JsonToSmlSettings from './JsonToSmlSettings'
-import { SmlDocument, SmlElement } from '@gelight/sml'
+import { SmlDocument, SmlElement, SmlAttribute } from '@gelight/sml';
+import JsonToSmlSettings from './JsonToSmlSettings';
 
 export default class JsonToSmlConverter {
 
     static convert(jsonObject: object): SmlDocument {
-        let root = new SmlElement("SML")
-        let doc = new SmlDocument(root)
-
-        let settings = new JsonToSmlSettings()
-
-        JsonToSmlConverter.convertObj(jsonObject, root, settings)
+        let root: SmlElement = new SmlElement("SML");
+        let doc: SmlDocument = new SmlDocument(root);
+        
+        let settings = new JsonToSmlSettings();
 
         if (settings.case === 1) {
-            doc.setEndKeyword("end")
-            root.name = "sml"
+            doc.setEndKeyword("end");
+            root.name = "sml";
         } else if (settings.case === 2) {
-            doc.setEndKeyword("END")
+            doc.setEndKeyword("END");
         }
         if (doc.getRoot().nodes.length === 1 && doc.getRoot().nodes[0] instanceof SmlElement) {
             doc.setRoot(doc.getRoot().nodes[0]);
         }
 
-        return doc
+        JsonToSmlConverter.convertObj(jsonObject, root, settings);
+
+        return doc;
     }
 
     private static convertObj(jsonObject, smlElement: SmlElement, settings: JsonToSmlSettings): void {
         if (JsonToSmlConverter.isValue(jsonObject)) {
-            smlElement.addString("Value", jsonObject);
+            smlElement.add(new SmlAttribute("Value", [String(jsonObject)]));
         } else if (JsonToSmlConverter.isSimpleArray(jsonObject)) {
             smlElement.addAttribute("Value", JsonToSmlConverter.getSimpleArrayValues(jsonObject));
         } else if (JsonToSmlConverter.isSimpleMatrix(jsonObject)) {
@@ -50,7 +50,7 @@ export default class JsonToSmlConverter {
             let value = jsonObject[key];
             
             if (JsonToSmlConverter.isValue(value)) {
-                smlElement.addString(key, value);
+                smlElement.add(new SmlAttribute(key, [value]));
             } else if (JsonToSmlConverter.isSimpleArray(value)) {
                 smlElement.addAttribute(key, JsonToSmlConverter.getSimpleArrayValues(value));
             } else if (JsonToSmlConverter.isSimpleMatrix(value)) {

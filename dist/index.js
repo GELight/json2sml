@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonToSmlConverter = void 0;
 const JsonToSmlConverter_1 = __importDefault(require("./json2sml/JsonToSmlConverter"));
 exports.JsonToSmlConverter = JsonToSmlConverter_1.default;
-let jsonExample = {
+let json = {
     "firstName": "John",
     "lastName": "Smith",
     "isAlive": true,
@@ -17,6 +17,7 @@ let jsonExample = {
         "state": "NY",
         "postalCode": "10021-3100"
     },
+    "aNullValue": null,
     "phoneNumbers": [
         {
             "type": "home",
@@ -32,10 +33,8 @@ let jsonExample = {
     ],
     "spouse": true
 };
-const json = {
-    "firstName": "John"
-};
 let doc = JsonToSmlConverter_1.default.convert(json);
 let root = doc.getRoot();
-console.log(root.attribute("lastName").getValues()[0]);
+let city = root.getElement("address").getAttribute("city").getValues()[0];
+console.log(city);
 //# sourceMappingURL=index.js.map
