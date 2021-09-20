@@ -7,7 +7,6 @@ exports.Converter = void 0;
 const Converter_1 = __importDefault(require("./json2sml/Converter"));
 exports.Converter = Converter_1.default;
 /*
-*/
 const json = {
     "firstName": "John",
     "lastName": "Smith",
@@ -34,9 +33,12 @@ const json = {
         "Aaron"
     ],
     "spouse": true
-};
+}
+
 // Use the converter to generate your SML document based on your JSON object
-const doc = Converter_1.default.convert(json);
+const doc = Converter.convert(json);
+
 // Output > Logs all SML attributes from the SML element "address"
 console.log(doc.getRoot().getElement("address").getAttributes());
+*/ 
 //# sourceMappingURL=index.js.map
