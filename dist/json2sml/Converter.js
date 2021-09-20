@@ -7,9 +7,9 @@ const sml_1 = require("@gelight/sml");
 const JsonToSmlSettings_1 = __importDefault(require("./JsonToSmlSettings"));
 class Converter {
     static convert(jsonObject) {
-        let root = new sml_1.SmlElement("SML");
-        let doc = new sml_1.SmlDocument(root);
-        let settings = new JsonToSmlSettings_1.default();
+        const root = new sml_1.SmlElement("SML");
+        const doc = new sml_1.SmlDocument(root);
+        const settings = new JsonToSmlSettings_1.default();
         if (settings.case === 1) {
             doc.setEndKeyword("end");
             root.name = "sml";
@@ -34,7 +34,7 @@ class Converter {
             smlElement.addAttribute("Value", Converter.getSimpleMatrixValues(jsonObject));
         }
         else if (Converter.isComplexArray(jsonObject)) {
-            let itemName = Converter.getItemName(null);
+            const itemName = Converter.getItemName(null);
             Converter.convertComplexArray(jsonObject, smlElement, itemName, settings);
         }
         else if (Converter.isObject(jsonObject)) {
@@ -45,10 +45,10 @@ class Converter {
         }
     }
     static convertObjProperties(jsonObject, smlElement, settings) {
-        let keys = Object.keys(jsonObject);
-        for (let key of keys) {
+        const keys = Object.keys(jsonObject);
+        for (const key of keys) {
             settings.scan(key);
-            let value = jsonObject[key];
+            const value = jsonObject[key];
             if (Converter.isValue(value)) {
                 smlElement.add(new sml_1.SmlAttribute(key, [value]));
             }
@@ -59,12 +59,12 @@ class Converter {
                 smlElement.addAttribute(key, Converter.getSimpleMatrixValues(value));
             }
             else if (Converter.isComplexArray(value)) {
-                let childSmlElement = smlElement.addElement(key);
-                let itemName = Converter.getItemName(key);
+                const childSmlElement = smlElement.addElement(key);
+                const itemName = Converter.getItemName(key);
                 Converter.convertComplexArray(value, childSmlElement, itemName, settings);
             }
             else if (Converter.isObject(value)) {
-                let childSmlElement = smlElement.addElement(key);
+                const childSmlElement = smlElement.addElement(key);
                 Converter.convertObjProperties(value, childSmlElement, settings);
             }
             else {
@@ -84,7 +84,7 @@ class Converter {
                 smlElement.addAttribute(itemName, Converter.getSimpleMatrixValues(property));
             }
             else {
-                let childSmlElement = smlElement.addElement(itemName);
+                const childSmlElement = smlElement.addElement(itemName);
                 Converter.convertObj(property, childSmlElement, settings);
             }
         }
@@ -112,13 +112,13 @@ class Converter {
         return simpleArray.map(x => Converter.valueToString(x));
     }
     static getSimpleMatrixValues(simpleArray) {
-        let result = [];
+        const result = [];
         for (const item of simpleArray) {
             if (Converter.isValue(item)) {
                 result.push(Converter.valueToString(item));
             }
             else {
-                let subValues = Converter.getSimpleArrayValues(item);
+                const subValues = Converter.getSimpleArrayValues(item);
                 result.push(...subValues);
             }
         }
@@ -158,7 +158,7 @@ class Converter {
                 return false;
             }
         }
-        let firstLength = jsonObject[0].length;
+        const firstLength = jsonObject[0].length;
         for (const item of jsonObject) {
             if (item.length !== firstLength) {
                 return false;

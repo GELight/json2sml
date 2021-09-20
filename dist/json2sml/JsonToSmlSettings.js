@@ -23,6 +23,7 @@ class JsonToSmlSettings {
             }
         }
         catch (e) {
+            // ...
         }
         this.alreadySet = true;
     }

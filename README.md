@@ -8,55 +8,95 @@ This library depends on SML (Simple Markup Language)
 
 ## What is SML?
 
-> [Video - Using SML in PHP](https://dev.stenway.com/SML/PHP.html)
-
 > [Guide - SML Specification](https://dev.stenway.com/SML/Specification.html)
 
 > [Video - SML in 60sec](https://www.youtube.com/watch?v=qOooyygwX0w)
 
 > [Video - SML Explained](https://www.youtube.com/watch?v=fBzMdzMtH-s&t=221s)
 
-## Using
+## Using in Node.js
 
 ```js
-import JsonToSmlConverter from "@gelight/json2sml";
+// Import the converter class from the module
+import { Converter } from "@gelight/json2sml";
 
+// JSON example
 let json = {
     "firstName": "John",
     "lastName": "Smith",
-    "isAlive": true,
     "age": 27,
     "address": {
         "streetAddress": "21 2nd Street",
         "city": "New York",
         "state": "NY",
         "postalCode": "10021-3100"
-    },
-    "aNullValue": null,
-    "phoneNumbers": [
-        {
-            "type": "home",
-            "number": "212 555-1234"
-        },
-        {
-            "type": "office",
-            "number": "646 555-4567"
-        }
-    ],
-    "children": [
-        "Aaron"
-    ],
-    "spouse": true
+    }
 }
 
-let doc = JsonToSmlConverter.convert(json);
-let root = doc.getRoot();
+// Use the converter to generate your SML document based on your JSON object
+let doc = Converter.convert(json);
 
-let city = root.getElement("address").getAttribute("city").getValues()[0];
-console.log(city);
+// Output > Logs all SML attributes from the SML element "address"
+console.log(doc.getRoot().getElement("address").getAttributes());
 ```
 
 Output:
+```js
+[
+  SmlAttribute {
+    whitespaces: null,
+    comment: null,
+    name: 'streetAddress',
+    values: [ '21 2nd Street' ]
+  },
+  SmlAttribute {
+    whitespaces: null,
+    comment: null,
+    name: 'city',
+    values: [ 'New York' ]
+  },
+  SmlAttribute {
+    whitespaces: null,
+    comment: null,
+    name: 'state',
+    values: [ 'NY' ]
+  },
+  SmlAttribute {
+    whitespaces: null,
+    comment: null,
+    name: 'postalCode',
+    values: [ '10021-3100' ]
+  }
+]
+```
+
+## Using in browser
+
 ```html
-New York
+<html>
+    <head>
+        <title>JSON2SML - Node package to convert JSON to SML</title>
+    </head>
+    <body>
+        <script src="https://unpkg.com/@gelight/json2sml"></script>
+        <script>
+          let json = {
+              "firstName": "John",
+              "lastName": "Smith",
+              "age": 27,
+              "address": {
+                  "streetAddress": "21 2nd Street",
+                  "city": "New York",
+                  "state": "NY",
+                  "postalCode": "10021-3100"
+              }
+          };
+          
+          let doc = JSON2SML.Converter.convert(json);
+          
+          console.log(doc.getRoot().getElement("address").getAttributes());
+          
+        </script>
+    </body>
+</html>
 ```

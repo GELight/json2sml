@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>JSON2SML - Node package to convert JSON to SML</title>
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+              }
+              body {
+                background: linear-gradient(161deg, #333a47 0%, #1c1d24 100%);
+                color: #8ca0c5;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+              .output {
+                padding: 1rem;
+                background: #3b4d6e;
+                background: linear-gradient(161deg, #333a47 0%, #1c1d24 100%);
+                box-shadow: 0 0 1rem 0 rgba(0,0,0,.5);
+                border: 1px dashed #8ca0c5;
+                border-radius: .5rem;
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+              }
+              
+              .attribute {
+                display: flex;
+              }
+              
+              .value {
+                border: .2rem solid #90ef8d;
+                background: #5f9467;
+                color: #fff;
+                margin: .2rem;
+                padding: .5rem;
+                border-radius: .5rem;
+              }
+        </style>
+    </head>
+    <body>
+        <div class="output"></div>
+
+        <script src="../releases/json2sml.min.js"></script>
+
+        <script>
+          const renderAttributes = (attrs) => {
+            let v = document.querySelector(".output");
+            for (const attr of attrs) {
+              let attrElm = document.createElement("div");
+              attrElm.className = "attribute";
+  
+              for (const value of attr.getValues()) {
+                let valueElm = document.createElement("div");
+                valueElm.className = "value";
+                let valueText = document.createTextNode(value);
+                valueElm.appendChild(valueText);
+                attrElm.appendChild(valueElm);
+              }
+  
+              v.append(attrElm);
+            }
+          }
+
+          let json = {
+              "firstName": "John",
+              "lastName": "Smith",
+              "isAlive": true,
+              "age": 27,
+              "address": {
+                  "streetAddress": "21 2nd Street",
+                  "city": "New York",
+                  "state": "NY",
+                  "postalCode": "10021-3100"
+              },
+              "aNullValue": null,
+              "phoneNumbers": [
+                  {
+                      "type": "home",
+                      "number": "212 555-1234"
+                  },
+                  {
+                      "type": "office",
+                      "number": "646 555-4567"
+                  }
+              ],
+              "children": [
+                  "Aaron"
+              ],
+              "spouse": true
+          };
+          
+          let doc = JSON2SML.Converter.convert(json);
+          
+          renderAttributes(doc.getRoot().getElement("address").getAttributes());
+          
+        </script>
+    </body>
+</html>

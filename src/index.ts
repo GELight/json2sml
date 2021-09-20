@@ -1,11 +1,11 @@
-import JsonToSmlConverter from "./json2sml/JsonToSmlConverter";
+import Converter from "./json2sml/Converter";
 
 export {
-    JsonToSmlConverter
+    Converter
 };
 
 /*
-let json = {
+const json = {
     "firstName": "John",
     "lastName": "Smith",
     "isAlive": true,
@@ -33,10 +33,9 @@ let json = {
     "spouse": true
 }
 
-let doc = JsonToSmlConverter.convert(json);
-let root = doc.getRoot();
+// Use the converter to generate your SML document based on your JSON object
+const doc = Converter.convert(json);
 
-let city = root.getElement("address").getAttribute("city").getValues()[0];
-
-console.log(city);
+// Output > Logs all SML attributes from the SML element "address"
+console.log(doc.getRoot().getElement("address").getAttributes());
 */

@@ -3,10 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonToSmlConverter = void 0;
-const JsonToSmlConverter_1 = __importDefault(require("./json2sml/JsonToSmlConverter"));
-exports.JsonToSmlConverter = JsonToSmlConverter_1.default;
-let json = {
+exports.Converter = void 0;
+const Converter_1 = __importDefault(require("./json2sml/Converter"));
+exports.Converter = Converter_1.default;
+/*
+*/
+const json = {
     "firstName": "John",
     "lastName": "Smith",
     "isAlive": true,
@@ -33,8 +35,8 @@ let json = {
     ],
     "spouse": true
 };
-let doc = JsonToSmlConverter_1.default.convert(json);
-let root = doc.getRoot();
-let city = root.getElement("address").getAttribute("city").getValues()[0];
-console.log(city);
+// Use the converter to generate your SML document based on your JSON object
+const doc = Converter_1.default.convert(json);
+// Output > Logs all SML attributes from the SML element "address"
+console.log(doc.getRoot().getElement("address").getAttributes());
 //# sourceMappingURL=index.js.map

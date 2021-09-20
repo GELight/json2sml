@@ -25,7 +25,7 @@ export default class JsonToSmlSettings {
                 this.case = 1;
             }
         } catch (e) {
-
+            // ...
         }
         this.alreadySet = true;
     }
