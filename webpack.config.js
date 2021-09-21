@@ -3,7 +3,7 @@ const config = require("./package.json");
 
 const RELEASES_PATH = path.resolve(__dirname, "releases");
 const RELEASE_NAME = config.name.replace("@gelight/", "");
-const LIBRARY_NAME = "json2sml".toUpperCase();
+const LIBRARY_NAME = RELEASE_NAME.toUpperCase();
 
 module.exports = {
     mode: "production",

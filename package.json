@@ -55,6 +55,7 @@
     "webpack-cli": "^4.8.0"
   },
   "files": [
-    "dist"
+    "dist",
+    "releases"
   ]
 }
