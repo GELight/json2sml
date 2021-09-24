@@ -3,7 +3,7 @@ import JsonToSmlSettings from './JsonToSmlSettings';
 
 export default class Converter {
 
-    static convert(jsonObject: unknown): SmlDocument {
+    static convert(jsonObject: any): SmlDocument {
         const root: SmlElement = new SmlElement("SML");
         const doc: SmlDocument = new SmlDocument(root);
         
@@ -36,8 +36,6 @@ export default class Converter {
             Converter.convertComplexArray(jsonObject, smlElement, itemName, settings);
         } else if (Converter.isObject(jsonObject)) {
             Converter.convertObjProperties(jsonObject, smlElement, settings);
-        } else {
-            smlElement.addString("...", "...");
         }
     }
 
@@ -62,8 +60,6 @@ export default class Converter {
             } else if (Converter.isObject(value)) {
                 const childSmlElement = smlElement.addElement(key);
                 Converter.convertObjProperties(value, childSmlElement, settings);
-            } else {
-                smlElement.addString("...", "...");
             }
         }
     }
@@ -71,7 +67,7 @@ export default class Converter {
     private static convertComplexArray(props: any[], smlElement: SmlElement, itemName: string, settings: JsonToSmlSettings): void {
         for (const property of props) {
             if (Converter.isValue(property)) {
-                smlElement.addString(itemName, property);
+                smlElement.add(new SmlAttribute(itemName, [property]));
             } else if (Converter.isSimpleArray(property)) {
                 smlElement.addAttribute(itemName, Converter.getSimpleArrayValues(property));
             } else if (Converter.isSimpleMatrix(property)) {

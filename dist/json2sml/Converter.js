@@ -40,9 +40,6 @@ class Converter {
         else if (Converter.isObject(jsonObject)) {
             Converter.convertObjProperties(jsonObject, smlElement, settings);
         }
-        else {
-            smlElement.addString("...", "...");
-        }
     }
     static convertObjProperties(jsonObject, smlElement, settings) {
         const keys = Object.keys(jsonObject);
@@ -67,15 +64,12 @@ class Converter {
                 const childSmlElement = smlElement.addElement(key);
                 Converter.convertObjProperties(value, childSmlElement, settings);
             }
-            else {
-                smlElement.addString("...", "...");
-            }
         }
     }
     static convertComplexArray(props, smlElement, itemName, settings) {
         for (const property of props) {
             if (Converter.isValue(property)) {
-                smlElement.addString(itemName, property);
+                smlElement.add(new sml_1.SmlAttribute(itemName, [property]));
             }
             else if (Converter.isSimpleArray(property)) {
                 smlElement.addAttribute(itemName, Converter.getSimpleArrayValues(property));
