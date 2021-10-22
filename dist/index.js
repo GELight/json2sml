@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Converter = void 0;
 const Converter_1 = __importDefault(require("./json2sml/Converter"));
 exports.Converter = Converter_1.default;
+/*
 const json = {
     "firstName": "John",
     "lastName": "Smith",
@@ -32,8 +33,10 @@ const json = {
         "Aaron"
     ],
     "spouse": true
-};
-const smlDocument = Converter_1.default.convert(json);
+}
+
+const smlDocument = Converter.convert(json);
 // console.log(smlDocument);
 console.log(smlDocument.toString());
+*/
 //# sourceMappingURL=index.js.map
