@@ -33,9 +33,7 @@ const json = {
     "spouse": true
 }
 
-// Use the converter to generate your SML document based on your JSON object
-const doc = Converter.convert(json);
-
-// Output > Logs all SML attributes from the SML element "address"
-console.log(doc.getRoot().getElement("address").getAttributes());
+const smlDocument = Converter.convert(json);
+// console.log(smlDocument);
+console.log(smlDocument.toString());
 */

@@ -8,7 +8,6 @@ export default class Converter {
         const doc: SmlDocument = new SmlDocument(root);
         
         const settings = new JsonToSmlSettings();
-
         if (settings.case === 1) {
             doc.setEndKeyword("end");
             root.name = "sml";
@@ -18,7 +17,7 @@ export default class Converter {
         if (doc.getRoot().nodes.length === 1 && doc.getRoot().nodes[0] instanceof SmlElement) {
             doc.setRoot(doc.getRoot().nodes[0]);
         }
-
+        
         Converter.convertObj(jsonObject, root, settings);
 
         return doc;

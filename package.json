@@ -58,6 +58,6 @@
     "releases"
   ],
   "dependencies": {
-    "@gelight/sml": "^0.2.3"
+    "@gelight/sml": "^0.3.3"
   }
 }
